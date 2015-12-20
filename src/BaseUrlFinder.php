@@ -1,6 +1,6 @@
 <?php
 
-namespace Blast\BasePath;
+namespace Blast\BaseUrl;
 
 class BaseUrlFinder
 {

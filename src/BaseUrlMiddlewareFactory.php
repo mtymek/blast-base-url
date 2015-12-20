@@ -1,14 +1,14 @@
 <?php
 
-namespace Blast\BasePath;
+namespace Blast\BaseUrl;
 
 use Interop\Container\ContainerInterface;
 
-class BasePathMiddlewareFactory
+class BaseUrlMiddlewareFactory
 {
     public function __invoke(ContainerInterface $services)
     {
-        $middleware = new BasePathMiddleware();
+        $middleware = new BaseUrlMiddleware();
 
         if ($services->has(UrlHelper::class)) {
             $middleware->setUrlHelper($services->get(UrlHelper::class));

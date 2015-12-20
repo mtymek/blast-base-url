@@ -1,6 +1,6 @@
 <?php
 
-namespace Blast\BasePath;
+namespace Blast\BaseUrl;
 
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Helper\Exception\MissingRouterException;

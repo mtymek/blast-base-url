@@ -1,11 +1,11 @@
 <?php
 
-namespace Blast\BasePath;
+namespace Blast\BaseUrl;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class BasePathMiddleware
+class BaseUrlMiddleware
 {
     const BASE_URL = '_base_url';
     const BASE_PATH = '_base_path';
@@ -19,7 +19,7 @@ class BasePathMiddleware
     private $urlHelper;
 
     /**
-     * BasePathMiddleware constructor.
+     * BaseUrlMiddleware constructor.
      */
     public function __construct()
     {

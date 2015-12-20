@@ -1,8 +1,8 @@
 <?php
 
-namespace Blast\Test\BasePath;
+namespace Blast\Test\BaseUrl;
 
-use Blast\BasePath\BaseUrlFinder;
+use Blast\BaseUrl\BaseUrlFinder;
 use PHPUnit_Framework_TestCase;
 
 class BaseUrlFinderTest extends PHPUnit_Framework_TestCase

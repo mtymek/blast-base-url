@@ -1,6 +1,6 @@
 <?php
 
-namespace Blast\BasePath;
+namespace Blast\BaseUrl;
 
 use Zend\Expressive\Helper\UrlHelper as BaseHelper;
 
