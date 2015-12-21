@@ -18,6 +18,9 @@ class BaseUrlMiddleware
     /** @var UrlHelper */
     private $urlHelper;
 
+    /** @var BasePathHelper  */
+    private $basePathHelper;
+
     /**
      * BaseUrlMiddleware constructor.
      */
@@ -32,6 +35,14 @@ class BaseUrlMiddleware
     public function setUrlHelper($urlHelper)
     {
         $this->urlHelper = $urlHelper;
+    }
+
+    /**
+     * @param BasePathHelper $basePathHelper
+     */
+    public function setBasePathHelper($basePathHelper)
+    {
+        $this->basePathHelper = $basePathHelper;
     }
 
     /**
@@ -62,12 +73,10 @@ class BaseUrlMiddleware
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
     {
         $baseUrl = $this->baseUrlFinder->findBaseUrl($request->getServerParams());
+        $basePath = $this->detectBasePath($request->getServerParams(), $baseUrl);
 
         $request = $request->withAttribute(self::BASE_URL, $baseUrl);
-        $request = $request->withAttribute(
-            self::BASE_PATH,
-            $this->detectBasePath($request->getServerParams(), $baseUrl)
-        );
+        $request = $request->withAttribute(self::BASE_PATH, $basePath);
 
         if (!empty($baseUrl) && strpos($request->getUri()->getPath(), $baseUrl) === 0) {
             $path = substr($request->getUri()->getPath(), strlen($baseUrl)) ?: '/';
@@ -76,6 +85,10 @@ class BaseUrlMiddleware
 
         if ($this->urlHelper) {
             $this->urlHelper->setBaseUrl($baseUrl);
+        }
+
+        if ($this->basePathHelper) {
+            $this->basePathHelper->setBasePath($basePath);
         }
 
         return $next($request, $response);
