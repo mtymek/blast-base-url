@@ -89,3 +89,38 @@ return [
     ],
 ];
 ```
+
+### Accessing assets - base path
+
+Another feature provided by this package is base path helper. It can be used to generate URLS
+for your asset files that work correctly under subdirectory. Enabling it requires following
+additions to your configuration:
+
+```php
+return [
+    'dependencies' => [
+        'invokables' => [
+            // setup factory
+            Blast\BaseUrl\BasePathHelper::class => Blast\BaseUrl\BasePathHelper::class,            
+        ],        
+    ],
+    'view_helpers => [
+        'factories' => [
+            'basePath' => Blast\BaseUrl\BasePathViewHelperFactory::class,
+        ],
+    ],
+];
+```
+
+If `BasePathHelper` is available, `BaseUrlMiddleware` will automatically configure it during
+execution. You will be able to use following syntax inside `zend-view` templates:
+
+```html
+<link rel="stylesheet" href="<?= $this->basePath('/css/style.css') ?>" />
+```
+
+Depending on your application directory, it will produce something similar to:
+
+```html
+<link rel="stylesheet" href="/public_html/my-project/public/css/style.css" />
+```
