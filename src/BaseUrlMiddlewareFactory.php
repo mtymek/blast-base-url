@@ -14,6 +14,10 @@ class BaseUrlMiddlewareFactory
             $middleware->setUrlHelper($services->get(UrlHelper::class));
         }
 
+        if ($services->has(BasePathHelper::class)) {
+            $middleware->setBasePathHelper($services->get(BasePathHelper::class));
+        }
+
         return $middleware;
     }
 }
