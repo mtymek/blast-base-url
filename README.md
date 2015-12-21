@@ -1,6 +1,8 @@
 Blast\BaseUrl
 =============
 
+[![Build Status](https://travis-ci.org/mtymek/blast-base-url.svg?branch=master)](https://travis-ci.org/mtymek/blast-base-url)
+
 PSR-7 middleware and helpers for working with base URL.
   
 Introduction
