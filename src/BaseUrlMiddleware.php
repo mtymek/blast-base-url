@@ -4,6 +4,7 @@ namespace Blast\BaseUrl;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zend\Expressive\Helper\UrlHelper;
 
 class BaseUrlMiddleware
 {
@@ -84,7 +85,7 @@ class BaseUrlMiddleware
         }
 
         if ($this->urlHelper) {
-            $this->urlHelper->setBaseUrl($baseUrl);
+            $this->urlHelper->setBasePath($baseUrl);
         }
 
         if ($this->basePathHelper) {
