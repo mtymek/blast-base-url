@@ -4,12 +4,11 @@ namespace Blast\Test\BaseUrl;
 
 use Blast\BaseUrl\BasePathHelper;
 use Blast\BaseUrl\BaseUrlMiddleware;
-use Blast\BaseUrl\UrlHelper;
 use PHPUnit_Framework_TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response;
-use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\ServerRequestFactory;
+use Zend\Expressive\Helper\UrlHelper;
 
 class BaseUrlMiddlewareTest extends PHPUnit_Framework_TestCase
 {
@@ -46,7 +45,7 @@ class BaseUrlMiddlewareTest extends PHPUnit_Framework_TestCase
         $middleware = new BaseUrlMiddleware();
 
         $urlHelper = $this->prophesize(UrlHelper::class);
-        $urlHelper->setBaseUrl('/index.php')->shouldBeCalled();
+        $urlHelper->setBasePath('/index.php')->shouldBeCalled();
         $middleware->setUrlHelper($urlHelper->reveal());
 
         $middleware($request, new Response(), function (ServerRequestInterface $request) {
