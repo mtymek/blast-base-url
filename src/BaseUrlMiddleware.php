@@ -55,12 +55,12 @@ class BaseUrlMiddleware
      */
     private function detectBasePath($serverParams, $baseUrl)
     {
-        $filename = basename(isset($serverParams['SCRIPT_FILENAME']) ? $serverParams['SCRIPT_FILENAME'] : '');
-
         // Empty base url detected
         if ($baseUrl === '') {
             return '';
         }
+
+        $filename = basename(isset($serverParams['SCRIPT_FILENAME']) ? $serverParams['SCRIPT_FILENAME'] : '');
 
         // basename() matches the script filename; return the directory
         if (basename($baseUrl) === $filename) {
