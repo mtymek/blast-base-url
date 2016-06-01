@@ -81,6 +81,7 @@ class BaseUrlMiddleware
 
         if (!empty($baseUrl) && strpos($request->getUri()->getPath(), $baseUrl) === 0) {
             $path = substr($request->getUri()->getPath(), strlen($baseUrl)) ?: '/';
+            $path = '/' . ltrim($path, '/');
             $request = $request->withUri($request->getUri()->withPath($path));
         }
 
