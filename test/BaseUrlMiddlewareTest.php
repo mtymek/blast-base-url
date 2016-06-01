@@ -78,4 +78,27 @@ class BaseUrlMiddlewareTest extends PHPUnit_Framework_TestCase
             $this->assertEquals('/news/3', $request->getUri()->getPath());
         });
     }
+
+    public function testMiddlewareDoesNotRemoveLeadingSlashWithEmptyBasePath()
+    {
+        $server = [
+            'REQUEST_URI'     => '/news',
+            'SCRIPT_NAME'     => '/index.php',
+            'PHP_SELF'        => '/news',
+            'SCRIPT_FILENAME' => '/var/www/site/public/index.php',
+        ];
+        $request = ServerRequestFactory::fromGlobals($server, [], [], [], []);
+
+        $middleware = new BaseUrlMiddleware();
+
+        $basePathHelper = $this->prophesize(BasePathHelper::class);
+        $basePathHelper->setBasePath('/')->shouldBeCalled();
+        $middleware->setBasePathHelper($basePathHelper->reveal());
+
+        $middleware($request, new Response(), function (ServerRequestInterface $request) {
+            $this->assertEquals('/', $request->getAttribute(BaseUrlMiddleware::BASE_PATH));
+            $this->assertEquals('/', $request->getAttribute(BaseUrlMiddleware::BASE_URL));
+            $this->assertEquals('/news', $request->getUri()->getPath());
+        });
+    }
 }
