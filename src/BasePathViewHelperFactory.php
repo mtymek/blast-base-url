@@ -6,11 +6,10 @@ use Interop\Container\ContainerInterface;
 
 class BasePathViewHelperFactory
 {
-    public function __invoke(ContainerInterface $services)
+    public function __invoke(ContainerInterface $container)
     {
-        $sl = $services->getServiceLocator();
         return new BasePathViewHelper(
-            $sl->get(BasePathHelper::class)
+            $container->get(BasePathHelper::class)
         );
     }
 }
