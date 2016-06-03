@@ -25,10 +25,10 @@ class BaseUrlFinder
      *
      *
      * @param array $serverParams
-     * @param array $uriPath The server request uri component path
+     * @param string $uriPath The server request uri component path
      * @return string
      */
-    public function findBaseUrl($serverParams = [], $uriPath)
+    public function findBaseUrl(array $serverParams, $uriPath)
     {
         $this->server = $serverParams;
 
