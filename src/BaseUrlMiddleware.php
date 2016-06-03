@@ -73,16 +73,19 @@ class BaseUrlMiddleware
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
     {
-        $baseUrl = $this->baseUrlFinder->findBaseUrl($request->getServerParams());
+        $uri = $request->getUri();
+        $uriPath = $uri->getPath();
+
+        $baseUrl  = $this->baseUrlFinder->findBaseUrl($request->getServerParams(), $uriPath);
         $basePath = $this->detectBasePath($request->getServerParams(), $baseUrl);
 
         $request = $request->withAttribute(self::BASE_URL, $baseUrl);
         $request = $request->withAttribute(self::BASE_PATH, $basePath);
 
-        if (!empty($baseUrl) && strpos($request->getUri()->getPath(), $baseUrl) === 0) {
-            $path = substr($request->getUri()->getPath(), strlen($baseUrl));
+        if (!empty($baseUrl) && strpos($uriPath, $baseUrl) === 0) {
+            $path = substr($uriPath, strlen($baseUrl));
             $path = '/' . ltrim($path, '/');
-            $request = $request->withUri($request->getUri()->withPath($path));
+            $request = $request->withUri($uri->withPath($path));
         }
 
         if ($this->urlHelper) {
