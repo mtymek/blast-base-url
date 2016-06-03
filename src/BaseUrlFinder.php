@@ -72,9 +72,10 @@ class BaseUrlFinder
      *
      *
      * @param array $serverParams
+     * @param array $uriPath The server request uri component path
      * @return string
      */
-    public function findBaseUrl($serverParams = [])
+    public function findBaseUrl($serverParams = [], $uriPath)
     {
         $this->server = $serverParams;
 
@@ -108,40 +109,31 @@ class BaseUrlFinder
             return '';
         }
 
-        // Does the base URL have anything in common with the request URI?
-        $requestUri = $this->detectRequestUri();
-
         // Full base URL matches.
-        if (0 === strpos($requestUri, $baseUrl)) {
+        if (0 === strpos($uriPath, $baseUrl)) {
             return $baseUrl;
         }
 
         // Directory portion of base path matches.
         $baseDir = str_replace('\\', '/', dirname($baseUrl));
-        if (0 === strpos($requestUri, $baseDir)) {
+        if (0 === strpos($uriPath, $baseDir)) {
             return $baseDir;
-        }
-
-        $truncatedRequestUri = $requestUri;
-
-        if (false !== ($pos = strpos($requestUri, '?'))) {
-            $truncatedRequestUri = substr($requestUri, 0, $pos);
         }
 
         $basename = basename($baseUrl);
 
         // No match whatsoever
-        if (empty($basename) || false === strpos($truncatedRequestUri, $basename)) {
+        if (empty($basename) || false === strpos($uriPath, $basename)) {
             return '';
         }
 
         // If using mod_rewrite or ISAPI_Rewrite strip the script filename
         // out of the base path. $pos !== 0 makes sure it is not matching a
         // value from PATH_INFO or QUERY_STRING.
-        if (strlen($requestUri) >= strlen($baseUrl)
-            && (false !== ($pos = strpos($requestUri, $baseUrl)) && $pos !== 0)
+        if (strlen($uriPath) >= strlen($baseUrl)
+            && (false !== ($pos = strpos($uriPath, $baseUrl)) && $pos !== 0)
         ) {
-            $baseUrl = substr($requestUri, 0, $pos + strlen($baseUrl));
+            $baseUrl = substr($uriPath, 0, $pos + strlen($baseUrl));
         }
 
         return $baseUrl;
