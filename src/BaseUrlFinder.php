@@ -17,53 +17,6 @@ class BaseUrlFinder
         return null;
     }
 
-    private function detectRequestUri()
-    {
-        $requestUri = null;
-
-        // Check this first so IIS will catch.
-        $httpXRewriteUrl = $this->getServer('HTTP_X_REWRITE_URL');
-        if ($httpXRewriteUrl !== null) {
-            $requestUri = $httpXRewriteUrl;
-        }
-
-        // Check for IIS 7.0 or later with ISAPI_Rewrite
-        $httpXOriginalUrl = $this->getServer('HTTP_X_ORIGINAL_URL');
-        if ($httpXOriginalUrl !== null) {
-            $requestUri = $httpXOriginalUrl;
-        }
-
-        // IIS7 with URL Rewrite: make sure we get the unencoded url
-        // (double slash problem).
-        $iisUrlRewritten = $this->getServer('IIS_WasUrlRewritten');
-        $unencodedUrl    = $this->getServer('UNENCODED_URL') ? : '';
-        if ('1' == $iisUrlRewritten && '' !== $unencodedUrl) {
-            return $unencodedUrl;
-        }
-
-        // HTTP proxy requests setup request URI with scheme and host [and port]
-        // + the URL path, only use URL path.
-        if (!$httpXRewriteUrl) {
-            $requestUri = $this->getServer('REQUEST_URI');
-        }
-
-        if ($requestUri !== null) {
-            return preg_replace('#^[^/:]+://[^/]+#', '', $requestUri);
-        }
-
-        // IIS 5.0, PHP as CGI.
-        $origPathInfo = $this->getServer('ORIG_PATH_INFO');
-        if ($origPathInfo !== null) {
-            $queryString = $this->getServer('QUERY_STRING') ? : '';
-            if ($queryString !== '') {
-                $origPathInfo .= '?' . $queryString;
-            }
-            return $origPathInfo;
-        }
-
-        return '/';
-    }
-
     /**
      * Auto-detect the base path from the request environment
      *
