@@ -160,7 +160,7 @@ class BaseUrlFinderTest extends PHPUnit_Framework_TestCase
     public function testBasePathDetection(array $server, $baseUrl)
     {
         $request = ServerRequestFactory::fromGlobals($server);
-        $result = (new BaseUrlFinder())->findBaseUrl($server, $$request->getUri()->getPath());
+        $result = (new BaseUrlFinder())->findBaseUrl($server, $request->getUri()->getPath());
         $this->assertEquals($baseUrl, $result);
     }
 }
