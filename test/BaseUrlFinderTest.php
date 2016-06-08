@@ -4,6 +4,7 @@ namespace Blast\Test\BaseUrl;
 
 use Blast\BaseUrl\BaseUrlFinder;
 use PHPUnit_Framework_TestCase;
+use Zend\Diactoros\ServerRequestFactory;
 
 class BaseUrlFinderTest extends PHPUnit_Framework_TestCase
 {
@@ -158,7 +159,8 @@ class BaseUrlFinderTest extends PHPUnit_Framework_TestCase
      */
     public function testBasePathDetection(array $server, $baseUrl)
     {
-        $result = (new BaseUrlFinder())->findBaseUrl($server);
+        $request = ServerRequestFactory::fromGlobals($server);
+        $result = (new BaseUrlFinder())->findBaseUrl($server, $request->getUri()->getPath());
         $this->assertEquals($baseUrl, $result);
     }
 }
