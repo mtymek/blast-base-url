@@ -8,9 +8,8 @@ class BasePathViewHelperFactory
 {
     public function __invoke(ContainerInterface $services)
     {
-        $sl = $services->getServiceLocator();
         return new BasePathViewHelper(
-            $sl->get(BasePathHelper::class)
+            $services->get(BasePathHelper::class)
         );
     }
 }
