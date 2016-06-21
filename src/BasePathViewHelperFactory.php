@@ -3,14 +3,18 @@
 namespace Blast\BaseUrl;
 
 use Interop\Container\ContainerInterface;
+use Zend\View\HelperPluginManager;
 
 class BasePathViewHelperFactory
 {
     public function __invoke(ContainerInterface $services)
     {
-        $sl = $services->getServiceLocator();
+        if ($services instanceof HelperPluginManager) {
+            $services = $services->getServiceLocator();
+        }
+
         return new BasePathViewHelper(
-            $sl->get(BasePathHelper::class)
+            $services->get(BasePathHelper::class)
         );
     }
 }
