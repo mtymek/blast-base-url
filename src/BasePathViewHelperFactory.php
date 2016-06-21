@@ -9,8 +9,7 @@ class BasePathViewHelperFactory
 {
     public function __invoke(ContainerInterface $services)
     {
-        if($services instanceof HelperPluginManager)
-        {
+        if ($services instanceof HelperPluginManager) {
             $services = $services->getServiceLocator();
         }
 
