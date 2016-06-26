@@ -45,11 +45,12 @@ Add `BaseUrlMiddleware` to your pipeline before routing:
 ```php
 return [
     'middleware_pipeline' => [
-        'pre_routing' => [
+        'always' => [
             [
                 'middleware' => [
                     BaseUrlMiddleware::class,
                 ],
+                'priority' => 10000,
             ],
         ],
     ],
@@ -86,13 +87,15 @@ additions to your configuration:
 return [
     'dependencies' => [
         'invokables' => [
-            // setup factory
             Blast\BaseUrl\BasePathHelper::class => Blast\BaseUrl\BasePathHelper::class,            
         ],        
     ],
     'view_helpers => [
+        'aliases' => [
+            'basePath' => Blast\BaseUrl\BasePathHelper::class,
+        ],
         'factories' => [
-            'basePath' => Blast\BaseUrl\BasePathViewHelperFactory::class,
+            Blast\BaseUrl\BasePathHelper::class => Blast\BaseUrl\BasePathViewHelperFactory::class,
         ],
     ],
 ];
