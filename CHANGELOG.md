@@ -2,6 +2,8 @@
 
 ## 0.2.0 - TBD
 
+* Added compatibility with ServiceManager v3 (doesn't show deprectation notice anymore)
+* Updated setup documentation to ensure default basePath plugin is overriden 
 * [#8](https://github.com/mtymek/blast-base-url/pull/11) removes code that finds "path" part of the URI, as it was
 duplicating similar functionality from `zend-diactoros`.
  
