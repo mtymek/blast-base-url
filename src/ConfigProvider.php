@@ -12,7 +12,6 @@ class ConfigProvider
             'dependencies' => [
                 'invokables' => [
                     BasePathHelper::class => BasePathHelper::class,
-                    BaseUrlMiddleware::class => BaseUrlMiddleware::class,
                 ],
             ],
             'view_helpers' => [
@@ -20,6 +19,7 @@ class ConfigProvider
                     'basePath' => BasePathHelper::class,
                 ],
                 'factories' => [
+                    BaseUrlMiddleware::class => BaseUrlMiddlewareFactory::class,
                     BasePathHelper::class => BasePathViewHelperFactory::class,
                 ],
             ],
