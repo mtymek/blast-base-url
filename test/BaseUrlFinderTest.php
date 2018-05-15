@@ -3,10 +3,10 @@
 namespace Blast\Test\BaseUrl;
 
 use Blast\BaseUrl\BaseUrlFinder;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Diactoros\ServerRequestFactory;
 
-class BaseUrlFinderTest extends PHPUnit_Framework_TestCase
+class BaseUrlFinderTest extends TestCase
 {
     /**
      * Data provider for testing base URL and path detection.

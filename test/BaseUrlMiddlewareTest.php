@@ -4,13 +4,13 @@ namespace Blast\Test\BaseUrl;
 
 use Blast\BaseUrl\BasePathHelper;
 use Blast\BaseUrl\BaseUrlMiddleware;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Expressive\Helper\UrlHelper;
 
-class BaseUrlMiddlewareTest extends PHPUnit_Framework_TestCase
+class BaseUrlMiddlewareTest extends TestCase
 {
     public function testMiddlewareUpdatesPathAndSetsAttributes()
     {

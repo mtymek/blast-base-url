@@ -1,6 +1,11 @@
 # Changelog
 
-## 0.2.0 - TBD
+## 1.0.0 - TBD
+* Added support for PHP 7.1 and 7.2
+* Dropped support for PHP 5
+* Updated PHPUnit to v6
+
+## 0.2.0 - 26.06.2016
 
 * Added compatibility with ServiceManager v3 (doesn't show deprectation notice anymore)
 * Updated setup documentation to ensure default basePath plugin is overriden 

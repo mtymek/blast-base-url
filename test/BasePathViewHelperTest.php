@@ -4,9 +4,9 @@ namespace Blast\Test\BaseUrl;
 
 use Blast\BaseUrl\BasePathHelper;
 use Blast\BaseUrl\BasePathViewHelper;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class BasePathViewHelperTest extends PHPUnit_Framework_TestCase
+class BasePathViewHelperTest extends TestCase
 {
     public function testViewHelperProxiesToBasePathHelper()
     {
