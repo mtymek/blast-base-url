@@ -42,5 +42,11 @@
         "cs": "phpcs",
         "cs-fix": "phpcbf",
         "test": "phpunit"
+    },
+    "extra": {
+        "zf": {
+            "component": "Blast\\BaseUrl",
+            "config-provider": "Blast\\BaseUrl\\ConfigProvider"
+        }
     }
 }
