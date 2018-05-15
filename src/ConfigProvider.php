@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Blast\BaseUrl;
 
+use Zend\ServiceManager\Factory\InvokableFactory;
+
 class ConfigProvider
 {
     public function __invoke()
     {
         return [
             'dependencies' => [
-                'invokables' => [
-                    BasePathHelper::class => BasePathHelper::class,
+                'factories' => [
+                    BasePathHelper::class => InvokableFactory::class,
+                    BaseUrlMiddleware::class => BaseUrlMiddlewareFactory::class,
                 ],
             ],
             'view_helpers' => [
@@ -19,7 +22,6 @@ class ConfigProvider
                     'basePath' => BasePathHelper::class,
                 ],
                 'factories' => [
-                    BaseUrlMiddleware::class => BaseUrlMiddlewareFactory::class,
                     BasePathHelper::class => BasePathViewHelperFactory::class,
                 ],
             ],
