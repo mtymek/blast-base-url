@@ -3,9 +3,9 @@
 namespace Blast\Test\BaseUrl;
 
 use Blast\BaseUrl\BasePathHelper;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class BasePathHelperTest extends PHPUnit_Framework_TestCase
+class BasePathHelperTest extends TestCase
 {
     public function testInvoke()
     {
