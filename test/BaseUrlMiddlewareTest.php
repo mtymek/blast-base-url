@@ -5,7 +5,9 @@ namespace Blast\Test\BaseUrl;
 use Blast\BaseUrl\BasePathHelper;
 use Blast\BaseUrl\BaseUrlMiddleware;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Expressive\Helper\UrlHelper;
@@ -24,11 +26,12 @@ class BaseUrlMiddlewareTest extends TestCase
         $request = ServerRequestFactory::fromGlobals($server, [], [], [], []);
 
         $middleware = new BaseUrlMiddleware();
-        $middleware($request, new Response(), function (ServerRequestInterface $request) {
+        $handler = $this->mockHandler(function (ServerRequestInterface $request) {
             $this->assertEquals('/', $request->getAttribute(BaseUrlMiddleware::BASE_PATH));
             $this->assertEquals('/index.php', $request->getAttribute(BaseUrlMiddleware::BASE_URL));
             $this->assertEquals('/news/3', $request->getUri()->getPath());
         });
+        $middleware->process($request, $handler);
     }
 
     public function testMiddlewareInjectsUrlHelperWithBaseUrl()
@@ -48,11 +51,12 @@ class BaseUrlMiddlewareTest extends TestCase
         $urlHelper->setBasePath('/index.php')->shouldBeCalled();
         $middleware->setUrlHelper($urlHelper->reveal());
 
-        $middleware($request, new Response(), function (ServerRequestInterface $request) {
+        $handler = $this->mockHandler(function (ServerRequestInterface $request) {
             $this->assertEquals('/', $request->getAttribute(BaseUrlMiddleware::BASE_PATH));
             $this->assertEquals('/index.php', $request->getAttribute(BaseUrlMiddleware::BASE_URL));
             $this->assertEquals('/news/3', $request->getUri()->getPath());
         });
+        $middleware->process($request, $handler);
     }
 
     public function testMiddlewareInjectsBasePathHelperWithBasePath()
@@ -72,11 +76,12 @@ class BaseUrlMiddlewareTest extends TestCase
         $basePathHelper->setBasePath('/')->shouldBeCalled();
         $middleware->setBasePathHelper($basePathHelper->reveal());
 
-        $middleware($request, new Response(), function (ServerRequestInterface $request) {
+        $handler = $this->mockHandler(function (ServerRequestInterface $request) {
             $this->assertEquals('/', $request->getAttribute(BaseUrlMiddleware::BASE_PATH));
             $this->assertEquals('/index.php', $request->getAttribute(BaseUrlMiddleware::BASE_URL));
             $this->assertEquals('/news/3', $request->getUri()->getPath());
         });
+        $middleware->process($request, $handler);
     }
 
     public function testMiddlewareDoesNotRemoveLeadingSlashWithEmptyBasePath()
@@ -95,10 +100,29 @@ class BaseUrlMiddlewareTest extends TestCase
         $basePathHelper->setBasePath('/')->shouldBeCalled();
         $middleware->setBasePathHelper($basePathHelper->reveal());
 
-        $middleware($request, new Response(), function (ServerRequestInterface $request) {
+        $handler = $this->mockHandler(function (ServerRequestInterface $request) {
             $this->assertEquals('/', $request->getAttribute(BaseUrlMiddleware::BASE_PATH));
             $this->assertEquals('/', $request->getAttribute(BaseUrlMiddleware::BASE_URL));
             $this->assertEquals('/news', $request->getUri()->getPath());
         });
+        $middleware->process($request, $handler);
+    }
+
+    private function mockHandler(callable $assertions)
+    {
+        return new class($assertions) implements RequestHandlerInterface {
+            private $assertions;
+
+            public function __construct($assertions)
+            {
+                $this->assertions = $assertions;
+            }
+
+            public function handle(ServerRequestInterface $request): ResponseInterface
+            {
+                ($this->assertions)($request);
+                return new Response();
+            }
+        };
     }
 }

@@ -4,9 +4,11 @@ namespace Blast\BaseUrl;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Expressive\Helper\UrlHelper;
 
-class BaseUrlMiddleware
+class BaseUrlMiddleware implements MiddlewareInterface
 {
     const BASE_URL = '_base_url';
     const BASE_PATH = '_base_path';
@@ -71,7 +73,7 @@ class BaseUrlMiddleware
         return $baseUrl;
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $uri = $request->getUri();
         $uriPath = $uri->getPath();
@@ -96,6 +98,6 @@ class BaseUrlMiddleware
             $this->basePathHelper->setBasePath($basePath);
         }
 
-        return $next($request, $response);
+        return $handler->handle($request);
     }
 }

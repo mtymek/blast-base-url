@@ -4,6 +4,7 @@
 * Added support for PHP 7.1 and 7.2
 * Dropped support for PHP 5
 * Updated PHPUnit to v6
+* Updated middleware class to be PSR-15-compatible.
 
 ## 0.2.0 - 26.06.2016
 
