@@ -14,7 +14,13 @@ class ConfigProvider
             'dependencies' => [
                 'factories' => [
                     BasePathHelper::class => InvokableFactory::class,
+                    BasePathTwigExtension::class => BasePathTwigExtensionFactory::class,
                     BaseUrlMiddleware::class => BaseUrlMiddlewareFactory::class,
+                ],
+            ],
+            'twig' => [
+                'extensions' => [
+                    'basePath' => BasePathTwigExtension::class,
                 ],
             ],
             'view_helpers' => [

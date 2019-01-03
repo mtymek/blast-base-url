@@ -70,10 +70,28 @@ Another feature provided by this package is base path helper. It can be used to 
 for your asset files that work correctly under subdirectory. 
 
 If `BasePathHelper` is available, `BaseUrlMiddleware` will automatically configure it during
-execution. You will be able to use following syntax inside `zend-view` templates:
+execution. 
+
+#### Zend View
+
+You will be able to use following syntax inside `zend-view` templates:
 
 ```html
 <link rel="stylesheet" href="<?= $this->basePath('/css/style.css') ?>" />
+```
+
+Depending on your application directory, it will produce something similar to:
+
+```html
+<link rel="stylesheet" href="/public_html/my-project/public/css/style.css" />
+```
+
+#### Twig
+
+You will be able to use following syntax inside `twig` templates:
+
+```html
+<link rel="stylesheet" href="{{ basePath('/css/style.css') }}" />
 ```
 
 Depending on your application directory, it will produce something similar to:
