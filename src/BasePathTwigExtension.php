@@ -21,9 +21,9 @@ class BasePathTwigExtension extends AbstractExtension
 
     public function getFunctions()
     {
-        return array(
-            new TwigFunction('basePath', array($this, 'render')),
-        );
+        return [
+            new TwigFunction('basePath', [$this, 'render']),
+        ];
     }
 
     public function render(string $assetUrl = '')
