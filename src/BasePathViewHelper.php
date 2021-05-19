@@ -2,7 +2,7 @@
 
 namespace Blast\BaseUrl;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class BasePathViewHelper extends AbstractHelper
 {

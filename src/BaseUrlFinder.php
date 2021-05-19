@@ -83,7 +83,8 @@ class BaseUrlFinder
         // If using mod_rewrite or ISAPI_Rewrite strip the script filename
         // out of the base path. $pos !== 0 makes sure it is not matching a
         // value from PATH_INFO or QUERY_STRING.
-        if (strlen($uriPath) >= strlen($baseUrl)
+        if (
+            strlen($uriPath) >= strlen($baseUrl)
             && (false !== ($pos = strpos($uriPath, $baseUrl)) && $pos !== 0)
         ) {
             $baseUrl = substr($uriPath, 0, $pos + strlen($baseUrl));

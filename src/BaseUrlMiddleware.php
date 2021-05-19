@@ -6,12 +6,12 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Expressive\Helper\UrlHelper;
+use Mezzio\Helper\UrlHelper;
 
 class BaseUrlMiddleware implements MiddlewareInterface
 {
-    const BASE_URL = '_base_url';
-    const BASE_PATH = '_base_path';
+    public const BASE_URL = '_base_url';
+    public const BASE_PATH = '_base_path';
 
     /**
      * @var BaseUrlFinder

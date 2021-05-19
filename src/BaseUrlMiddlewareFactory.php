@@ -3,7 +3,7 @@
 namespace Blast\BaseUrl;
 
 use Interop\Container\ContainerInterface;
-use Zend\Expressive\Helper\UrlHelper;
+use Mezzio\Helper\UrlHelper;
 
 class BaseUrlMiddlewareFactory
 {
