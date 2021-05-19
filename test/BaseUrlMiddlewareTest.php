@@ -8,12 +8,14 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\ServerRequestFactory;
-use Zend\Expressive\Helper\UrlHelper;
-
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\ServerRequestFactory;
+use Mezzio\Helper\UrlHelper;
+use Prophecy\PhpUnit\ProphecyTrait;
 class BaseUrlMiddlewareTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testMiddlewareUpdatesPathAndSetsAttributes()
     {
         $server = [
