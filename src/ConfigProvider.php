@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Blast\BaseUrl;
 
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 class ConfigProvider
 {
-    public function __invoke()
+    public function __invoke(): array
     {
         return [
             'dependencies' => [
                 'factories' => [
-                    BasePathHelper::class => InvokableFactory::class,
+                    BasePathHelper::class        => InvokableFactory::class,
                     BasePathTwigExtension::class => BasePathTwigExtensionFactory::class,
-                    BaseUrlMiddleware::class => BaseUrlMiddlewareFactory::class,
+                    BaseUrlMiddleware::class     => BaseUrlMiddlewareFactory::class,
                 ],
             ],
             'twig' => [

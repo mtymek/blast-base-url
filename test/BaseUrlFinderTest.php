@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blast\Test\BaseUrl;
 
 use Blast\BaseUrl\BaseUrlFinder;
+use Laminas\Diactoros\ServerRequestFactory;
 use PHPUnit\Framework\TestCase;
-use Zend\Diactoros\ServerRequestFactory;
 
 class BaseUrlFinderTest extends TestCase
 {
@@ -63,14 +65,6 @@ class BaseUrlFinderTest extends TestCase
             ],
             [
                 [
-                    'HTTP_X_REWRITE_URL' => '/index.php/news/3?var1=val1&var2=val2',
-                    'PHP_SELF'           => '/index.php/news/3',
-                    'SCRIPT_FILENAME'    => '/var/web/html/index.php',
-                ],
-                '/index.php',
-            ],
-            [
-                [
                     'ORIG_PATH_INFO'  => '/index.php/news/3',
                     'QUERY_STRING'    => 'var1=val1&var2=val2',
                     'PHP_SELF'        => '/index.php/news/3',
@@ -104,22 +98,22 @@ class BaseUrlFinderTest extends TestCase
             ],
             [
                 [
-                    'SCRIPT_NAME'     => '/~username/public/index.php',
-                    'REQUEST_URI'     => '/~username/public/',
-                    'PHP_SELF'        => '/~username/public/index.php',
-                    'SCRIPT_FILENAME' => '/Users/username/Sites/public/index.php',
-                    'ORIG_SCRIPT_NAME'=> null
+                    'SCRIPT_NAME'      => '/~username/public/index.php',
+                    'REQUEST_URI'      => '/~username/public/',
+                    'PHP_SELF'         => '/~username/public/index.php',
+                    'SCRIPT_FILENAME'  => '/Users/username/Sites/public/index.php',
+                    'ORIG_SCRIPT_NAME' => null,
                 ],
                 '/~username/public',
             ],
             // ZF2-206
             [
                 [
-                    'SCRIPT_NAME'     => '/zf2tut/index.php',
-                    'REQUEST_URI'     => '/zf2tut/',
-                    'PHP_SELF'        => '/zf2tut/index.php',
-                    'SCRIPT_FILENAME' => 'c:/ZF2Tutorial/public/index.php',
-                    'ORIG_SCRIPT_NAME'=> null
+                    'SCRIPT_NAME'      => '/zf2tut/index.php',
+                    'REQUEST_URI'      => '/zf2tut/',
+                    'PHP_SELF'         => '/zf2tut/index.php',
+                    'SCRIPT_FILENAME'  => 'c:/ZF2Tutorial/public/index.php',
+                    'ORIG_SCRIPT_NAME' => null,
                 ],
                 '/zf2tut',
             ],
@@ -143,8 +137,8 @@ class BaseUrlFinderTest extends TestCase
             //Test when url quert contains a full http url
             [
                 [
-                    'REQUEST_URI' => '/html/index.php?url=http://test.example.com/path/&foo=bar',
-                    'PHP_SELF' => '/html/index.php',
+                    'REQUEST_URI'     => '/html/index.php?url=http://test.example.com/path/&foo=bar',
+                    'PHP_SELF'        => '/html/index.php',
                     'SCRIPT_FILENAME' => '/var/web/html/index.php',
                 ],
                 '/html/index.php',
@@ -157,10 +151,11 @@ class BaseUrlFinderTest extends TestCase
      * @param array  $server
      * @param string $baseUrl
      */
-    public function testBasePathDetection(array $server, $baseUrl)
+    public function testBasePathDetection(array $server, $baseUrl): void
     {
         $request = ServerRequestFactory::fromGlobals($server);
-        $result = (new BaseUrlFinder())->findBaseUrl($server, $request->getUri()->getPath());
+        $result  = (new BaseUrlFinder())->findBaseUrl($server, $request->getUri()->getPath());
+
         $this->assertEquals($baseUrl, $result);
     }
 }
