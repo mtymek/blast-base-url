@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blast\Test\BaseUrl;
 
 use Blast\BaseUrl\BasePathHelper;
@@ -8,12 +10,13 @@ use PHPUnit\Framework\TestCase;
 
 class BasePathViewHelperTest extends TestCase
 {
-    public function testViewHelperProxiesToBasePathHelper()
+    public function testViewHelperProxiesToBasePathHelper(): void
     {
         $baseHelper = new BasePathHelper('/base');
 
         $viewHelper = new BasePathViewHelper($baseHelper);
-        $result = $viewHelper('/styles.css');
+        $result     = $viewHelper('/styles.css');
+
         $this->assertEquals('/base/styles.css', $result);
     }
 }

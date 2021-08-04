@@ -49,8 +49,8 @@ class BaseUrlMiddleware implements MiddlewareInterface
      *
      * Uses several criteria to determine the base path of the request.
      *
-     * @param string[]  $serverParams
-     * @param string $baseUrl
+     * @param string[] $serverParams
+     * @param string   $baseUrl
      *
      * @return string
      */

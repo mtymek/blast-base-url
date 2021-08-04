@@ -8,7 +8,7 @@ use function strpos;
 
 class BaseUrlFinder
 {
-    /** @var array */
+    /** @var mixed[] */
     private array $server;
 
     /**
