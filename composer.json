@@ -1,5 +1,5 @@
 {
-    "name": "mtymek/blast-base-url",
+    "name": "guidofaecke/blast-base-url",
     "description": "PSR-7 middleware and helpers for working with base URL.",
     "keywords": ["psr7", "psr-7", "middleware", "base url", "baseurl", "expressive"],
     "authors": [
