@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blast\BaseUrl;
 
 class BasePathHelper
 {
-    /** @var string */
-    private $basePath;
+    private string $basePath;
 
     /**
-     * BasePathHelper constructor.
+     * BasePathHelper constructor
+     *
      * @param string $basePath
      */
-    public function __construct($basePath = '')
+    public function __construct(string $basePath = '')
     {
         $this->setBasePath($basePath);
     }
@@ -19,12 +21,17 @@ class BasePathHelper
     /**
      * @param string $basePath
      */
-    public function setBasePath($basePath)
+    public function setBasePath(string $basePath): void
     {
         $this->basePath = rtrim($basePath, '/');
     }
 
-    public function __invoke($assetUrl = '')
+    /**
+     * @param string $assetUrl
+     *
+     * @return string
+     */
+    public function __invoke(string $assetUrl = ''): string
     {
         return $this->basePath . '/' . ltrim($assetUrl, '/');
     }

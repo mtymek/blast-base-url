@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blast\BaseUrl;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class BasePathViewHelper extends AbstractHelper
 {
-    /** @var BasePathHelper */
-    private $basePathHelper;
+    private BasePathHelper $basePathHelper;
 
     /**
-     * BasePathViewHelper constructor.
+     * BasePathViewHelper constructor
+     *
      * @param BasePathHelper $basePathHelper
      */
     public function __construct(BasePathHelper $basePathHelper)
@@ -18,9 +20,15 @@ class BasePathViewHelper extends AbstractHelper
         $this->basePathHelper = $basePathHelper;
     }
 
-    public function __invoke($assetUrl = '')
+    /**
+     * @param string $assetUrl
+     *
+     * @return string
+     */
+    public function __invoke(string $assetUrl = ''): string
     {
         $helper = $this->basePathHelper;
+
         return $helper($assetUrl);
     }
 }

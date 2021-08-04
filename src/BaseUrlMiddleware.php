@@ -1,41 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blast\BaseUrl;
 
+use Mezzio\Helper\UrlHelper;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Expressive\Helper\UrlHelper;
 
 class BaseUrlMiddleware implements MiddlewareInterface
 {
-    const BASE_URL = '_base_url';
-    const BASE_PATH = '_base_path';
+    public const BASE_URL  = '_base_url';
+    public const BASE_PATH = '_base_path';
+
+    private BaseUrlFinder $baseUrlFinder;
+
+    private ?UrlHelper $urlHelper;
+
+    private ?BasePathHelper $basePathHelper;
 
     /**
-     * @var BaseUrlFinder
-     */
-    private $baseUrlFinder;
-
-    /** @var UrlHelper */
-    private $urlHelper;
-
-    /** @var BasePathHelper  */
-    private $basePathHelper;
-
-    /**
-     * BaseUrlMiddleware constructor.
+     * BaseUrlMiddleware constructor
      */
     public function __construct()
     {
-        $this->baseUrlFinder = new BaseUrlFinder();
+        $this->baseUrlFinder  = new BaseUrlFinder();
+        $this->urlHelper      = null;
+        $this->basePathHelper = null;
     }
 
-    /**
-     * @param UrlHelper $urlHelper
-     */
-    public function setUrlHelper($urlHelper)
+    public function setUrlHelper(UrlHelper $urlHelper): void
     {
         $this->urlHelper = $urlHelper;
     }
@@ -43,7 +39,7 @@ class BaseUrlMiddleware implements MiddlewareInterface
     /**
      * @param BasePathHelper $basePathHelper
      */
-    public function setBasePathHelper($basePathHelper)
+    public function setBasePathHelper(BasePathHelper $basePathHelper): void
     {
         $this->basePathHelper = $basePathHelper;
     }
@@ -53,16 +49,19 @@ class BaseUrlMiddleware implements MiddlewareInterface
      *
      * Uses several criteria to determine the base path of the request.
      *
+     * @param string[]  $serverParams
+     * @param string $baseUrl
+     *
      * @return string
      */
-    private function detectBasePath($serverParams, $baseUrl)
+    private function detectBasePath(array $serverParams, string $baseUrl): string
     {
         // Empty base url detected
         if ($baseUrl === '') {
             return '';
         }
 
-        $filename = basename(isset($serverParams['SCRIPT_FILENAME']) ? $serverParams['SCRIPT_FILENAME'] : '');
+        $filename = basename($serverParams['SCRIPT_FILENAME'] ?? '');
 
         // basename() matches the script filename; return the directory
         if (basename($baseUrl) === $filename) {
@@ -75,7 +74,7 @@ class BaseUrlMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $uri = $request->getUri();
+        $uri     = $request->getUri();
         $uriPath = $uri->getPath();
 
         $baseUrl  = $this->baseUrlFinder->findBaseUrl($request->getServerParams(), $uriPath);
@@ -87,6 +86,7 @@ class BaseUrlMiddleware implements MiddlewareInterface
         if (!empty($baseUrl) && strpos($uriPath, $baseUrl) === 0) {
             $path = substr($uriPath, strlen($baseUrl));
             $path = '/' . ltrim($path, '/');
+
             $request = $request->withUri($uri->withPath($path));
         }
 

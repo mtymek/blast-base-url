@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blast\BaseUrl;
 
 use Twig\Extension\AbstractExtension;
@@ -7,11 +9,11 @@ use Twig\TwigFunction;
 
 class BasePathTwigExtension extends AbstractExtension
 {
-    /** @var BasePathHelper */
-    private $basePathHelper;
+    private BasePathHelper $basePathHelper;
 
     /**
-     * BasePathTwigExtension constructor.
+     * BasePathTwigExtension constructor
+     *
      * @param BasePathHelper $basePathHelper
      */
     public function __construct(BasePathHelper $basePathHelper)
@@ -19,16 +21,22 @@ class BasePathTwigExtension extends AbstractExtension
         $this->basePathHelper = $basePathHelper;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
-        return array(
-            new TwigFunction('basePath', array($this, 'render')),
-        );
+        return [
+            new TwigFunction('basePath', [$this, 'render']),
+        ];
     }
 
-    public function render(string $assetUrl = '')
+    /**
+     * @param string $assetUrl
+     *
+     * @return string
+     */
+    public function render(string $assetUrl = ''): string
     {
         $helper = $this->basePathHelper;
+
         return $helper($assetUrl);
     }
 }
