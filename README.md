@@ -17,7 +17,7 @@ Installation
 
 Installation is supported using Composer:
 ```
-$ composer require mtymek/blast-base-url
+$ composer require guidofaecke/blast-base-url
 ```
 
 If `Zend Component Installer` is present, it will automatically update application configuration.
