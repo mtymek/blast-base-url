@@ -9,7 +9,7 @@ be useful sometimes, especially in development environment.
 
 View helpers for working with assets are also provided in the package.
 
-Detection logic is based on [`zend-http`](https://github.com/zendframework/zend-http) 
+Detection logic is based on [`laminas-http`](https://github.com/laminas/laminas-http) 
 package.
 
 Installation
@@ -26,8 +26,8 @@ Usage
 -----
 
 For simplicity, following instructions are targeting applications based on 
-[Zend Expressive Skeleton](https://github.com/zendframework/zend-expressive-skeleton),
-assuming that `Zend\ServiceManager` was selected as DI container.
+[Mezzio Skeleton](https://github.com/mezzio/mezzio-skeleton),
+assuming that `laminas/laminas-servicemanager` was selected as DI container.
   
 `Blast\BaseUrl` is based on PSR-7, so it will work well with other frameworks/dispatchers
 like Slim3 or Relay, just that wiring process will look different.
