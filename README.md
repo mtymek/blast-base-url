@@ -1,8 +1,6 @@
 Blast\BaseUrl
 =============
 
-[![Build Status](https://travis-ci.org/mtymek/blast-base-url.svg?branch=master)](https://travis-ci.org/mtymek/blast-base-url)
-  
 This package detects base URL of web application. It is useful when you need your app
 to be served from subdirectory (like `http://localhost/my-project/public`). This can
 be useful sometimes, especially in development environment.

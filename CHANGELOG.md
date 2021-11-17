@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0 - 2021-11-16
+
+### Added
+
+- Added PHP 8.1 support
+
 ## 2.0.0 - 2021-08-04
 
 ### Changed
