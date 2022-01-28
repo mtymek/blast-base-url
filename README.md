@@ -1,5 +1,8 @@
 Blast\BaseUrl
 =============
+Just another fork of mtymek/blast-base-url...
+Not exactly! The development of mtymek/blast-base-url apparently stopped in 2019, so 
+here we go, strip the cruft and get back to PHP7.4 - 8.1
 
 This package detects base URL of web application. It is useful when you need your app
 to be served from subdirectory (like `http://localhost/my-project/public`). This can
