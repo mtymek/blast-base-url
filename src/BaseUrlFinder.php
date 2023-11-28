@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Blast\BaseUrl;
 
+use function strlen;
 use function strpos;
+use function substr;
 
 class BaseUrlFinder
 {
@@ -27,8 +29,8 @@ class BaseUrlFinder
      * Uses a variety of criteria in order to detect the base URL of the request
      * (i.e., anything additional to the document root).
      *
-     * @param array  $serverParams
-     * @param string $uriPath      The server request uri component path
+     * @param array<string> $serverParams
+     * @param string        $uriPath      The server request uri component path
      *
      * @return string
      */
@@ -91,14 +93,10 @@ class BaseUrlFinder
         // value from PATH_INFO or QUERY_STRING.
         $pos = strpos($uriPath, $baseUrl);
 
-        if (
-            $pos !== false
-            && $pos > 0
-            && strlen($uriPath) >= strlen($baseUrl)
-        ) {
-            $baseUrl = substr($uriPath, 0, $pos + strlen($baseUrl));
+        if ($pos === false || strlen($uriPath) < strlen($baseUrl)) {
+            return $baseUrl;
         }
 
-        return $baseUrl;
+        return substr($uriPath, 0, $pos + strlen($baseUrl));
     }
 }

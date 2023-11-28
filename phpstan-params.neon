@@ -1,6 +1,11 @@
 parameters:
-    level: 5
+    level: 7
     paths:
         - src
         - test
     phpVersion: 80200
+
+    ignoreErrors:
+        - '~^Call to an undefined method Prophecy\\Prophecy\\ObjectProphecy\:\:setBasePath\(\)\.$~'
+        - '~^Parameter #1 \$urlHelper of method Blast\\BaseUrl\\BaseUrlMiddleware\:\:setUrlHelper\(\) expects Mezzio\\Helper\\UrlHelper, object given\.$~'
+        - '~^Parameter #1 \$basePathHelper of method Blast\\BaseUrl\\BaseUrlMiddleware\:\:setBasePathHelper\(\) expects Blast\\BaseUrl\\BasePathHelper, object given\.$~'

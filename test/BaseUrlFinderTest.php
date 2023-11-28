@@ -12,8 +12,10 @@ class BaseUrlFinderTest extends TestCase
 {
     /**
      * Data provider for testing base URL and path detection.
+     *
+     * @return array<mixed>
      */
-    public static function baseUrlProvider()
+    public static function baseUrlProvider(): array
     {
         return [
             [
@@ -148,10 +150,10 @@ class BaseUrlFinderTest extends TestCase
 
     /**
      * @dataProvider baseUrlProvider
-     * @param array  $server
-     * @param string $baseUrl
+     * @param array<string, mixed> $server
+     * @param string               $baseUrl
      */
-    public function testBasePathDetection(array $server, $baseUrl): void
+    public function testBasePathDetection(array $server, string $baseUrl): void
     {
         $request = ServerRequestFactory::fromGlobals($server);
         $result  = (new BaseUrlFinder())->findBaseUrl($server, $request->getUri()->getPath());

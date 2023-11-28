@@ -119,13 +119,13 @@ class BaseUrlMiddlewareTest extends TestCase
         $middleware->process($request, $handler);
     }
 
-    private function mockHandler(callable $assertions)
+    private function mockHandler(callable $assertions): RequestHandlerInterface
     {
         return new class ($assertions) implements RequestHandlerInterface {
             /** @var callable */
             private $assertions;
 
-            public function __construct($assertions)
+            public function __construct(callable $assertions)
             {
                 $this->assertions = $assertions;
             }
