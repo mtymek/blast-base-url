@@ -16,7 +16,7 @@
 
 ### Removed
 
-- Nothing.
+- Removed PHP 7.4 and 8.0 support.
 
 ### Fixed
 
