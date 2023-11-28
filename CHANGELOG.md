@@ -1,5 +1,27 @@
 # Changelog
 
+## 2.2.0 - 2023-11-28
+
+### Added
+
+- Added PHP 8.2 and PHP 8.3 support.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 2.1.0 - 2021-11-16
 
 ### Added
