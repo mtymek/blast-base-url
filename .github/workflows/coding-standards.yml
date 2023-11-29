@@ -64,7 +64,7 @@ jobs:
         uses: "shivammathur/setup-php@v2"
         with:
           coverage: "none"
-          php-version: "${{ matrix.php-version }}"
+          php-version: "${{ matrix.php-versions }}"
           tools: "cs2pr"
 
       - name: "Set COMPOSER_ROOT_VERSION"
