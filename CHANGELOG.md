@@ -4,7 +4,7 @@
 
 ### Added
 
-- Added PHP 8.2 and PHP 8.3 support.
+- Added PHP 8.2 support.
 
 ### Changed
 
