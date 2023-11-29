@@ -54,8 +54,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version:
-          - "${{ inputs.php-version }}"
+        php-versions: ['8.1', '8.2']
 
     steps:
       - name: "Checkout"
