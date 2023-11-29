@@ -12,7 +12,7 @@ on:
     php-version:
       description: "The PHP version to use when running the job"
       default: "8.2"
-      required: false
+      required: true
       type: "string"
     composer-root-version:
       description: "The version of the package being tested, in case of circular dependencies."
@@ -35,7 +35,7 @@ on:
     php-version:
       description: "The PHP version to use when running the job"
       default: "8.2"
-      required: false
+      required: true
       type: "string"
     composer-root-version:
       description: "The version of the package being tested, in case of circular dependencies."
